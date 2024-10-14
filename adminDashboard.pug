@@ -1,0 +1,120 @@
+extends layout
+
+block content 
+
+    style.
+        body{background: #F0F1F3;}
+
+    .container-fluid(style='margin-top: 90px;')
+        .row
+            .col-sm-9.col-md-9.col-lg-3.mb-3.mb-sm-0
+                .card.rounded-0.shadow-0
+                    img.imag-fluid.rounded-circle.mx-auto.d-block(src='/uploads/download.png' style='height: 120px; width: 120px;')
+                    .card-body
+                        h5.card-title.text-center #{user.username}
+                    ul.list-group.list-group-flush.p-1
+                        li.list-group-item
+                            i.fa-solid.fa-envelope.fs-5 
+                            |
+                            span.p-1  #{user.email}
+                        li.list-group-item
+                            i.fa-solid.fa-gear.fs-5 
+                            |
+                            span.p-1  #{user.role}
+            .col-sm-9
+                .card.rounded-0.shadow-0
+                    .card-body
+                        i.fas.fa-tachometer-alt.fs-2  
+                        span.fs-2  Dashboard
+
+                    .row.g-3.p-2
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #4e73df;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Hero)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ #{hero.length}
+                                        .col-auto
+                                            i.fa-solid.fa-user.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #1cc88a;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Services)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ #{services.length}
+                                        .col-auto
+                                            i.fa-solid.fa-wrench.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #36b9cc;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Product)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ #{product.length}
+                                        .col-auto
+                                           i.fa-solid.fa-cart-shopping.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #e74a3b;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Footer)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ #{footer.length}
+                                        .col-auto
+                                            i.fas.fa-copyright.fa-2x(style='color: #DDDFEB;')
+                    .row.g-3.p-2
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #e74a3b;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (User)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ #{users.length}
+                                        .col-auto
+                                            i.fa-solid.fa-user.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #1cc88a;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Users Post)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ #{post.length}
+                                        .col-auto
+                                            i.fa-solid.fa-wrench.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #36b9cc;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Product)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $40,000
+                                        .col-auto
+                                           i.fa-solid.fa-cart-shopping.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #4e73df;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Footer)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $40,000
+                                        .col-auto
+                                            i.fas.fa-copyright.fa-2x(style='color: #DDDFEB;')
+
+
+

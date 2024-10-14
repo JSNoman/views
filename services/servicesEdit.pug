@@ -1,0 +1,64 @@
+extends ../layout 
+
+block content 
+
+    style.
+        body{ background-image: linear-gradient(180deg, #f400ff, #0039f1); min-height: 81vh;}
+    .container-md.mb-3(style='margin-top: 100px;')
+        .card
+            h1.text-center.text-primary.mt-2.text-decoration-underline(data-aos='fade-right' data-aos-duration="2000")  Service Edit
+            .card-body
+                form(action=`/admin/services/edit/${services.id}` method="post" enctype="multipart/form-data")
+
+                    .row 
+
+                        form(action="/admin/services" method="post" enctype="multipart/form-data" style='')
+
+                            .row 
+                                .col-lg-4
+                                    .form-outline.mb-3(data-mdb-input-init='')
+                                        input#formControlLg.form-control.form-control-lg(type='text' name='colorText' value=services.colorText)
+                                        label.form-label(for='') Color Text
+                                    
+                                .col-lg-4
+                                    .form-outline.mb-3(data-mdb-input-init='')
+                                        input#formControlLg.form-control.form-control-lg(type='text' name='smallTitle' value=services.smallTitle)
+                                        label.form-label(for='') Small Title
+
+                                .col-lg-4
+                                    .form-outline.mb-3(data-mdb-input-init='')
+                                        input#formControlLg.form-control.form-control-lg(type='text' name='contact' value=services.contact)
+                                        label.form-label(for='') Whatsapp Number Start to 880
+                            .row 
+                                .col-lg-6
+                                    .mb-3(data-mdb-input-init='')
+                                        label.mb-1(for="") Upload CV
+                                        input#formFileLg.form-control.form-control-md(type='file' name='cv')
+                                        if services.cv 
+                                            small.text-muted Current CV: #{services.cv}
+                                            a(href=`/uploads/${services.cv}` target='_blank').text-decoration-none  View CV
+                                            input(type="hidden", name="existingCv" value=services.cv)
+
+                                .col-lg-6
+                                    .mb-3(data-mdb-input-init='')
+                                        label.mb-1(for="") Upload image
+                                        input#formFileLg.form-control.form-control-md(type='file' name='image')
+                                        if services.image
+                                            small Current Image: #{services.image}
+                                            a(href=`/uploads/${services.image}` target='_blank').text-decoration-none    View image
+                                            img.img-fluid.rounded-circle.mx-auto.d-block(src=`/uploads/${services.image}` alt='' data-aos='fade-left' data-aos-duration="2000" style='background-image: linear-gradient(180deg, #c4b6fd, #93acfc); height: 100px; width: 100px;')
+                                            input(type="hidden", name="existingImage" value=services.image)
+                                            
+                            .row 
+
+                                .col-lg-6
+                                    .form-outline.mb-3(data-mdb-input-init='')
+                                        textarea#textAreaExample.form-control(rows='4' name='message')=services.message
+                                        label.form-label(for='') Message
+
+                                .col-lg-6
+                                    .form-outline.mb-3(data-mdb-input-init='')
+                                        textarea#textAreaExample.form-control(rows='4' name='secondMessage')=services.secondMessage
+                                        label.form-label(for='') Second Message
+                                div   
+                                    button.btn.btn-primary.text-capitalize(type="submit") Submit

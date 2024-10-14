@@ -1,0 +1,107 @@
+style.
+  .home{color: #6C757D}
+  .home:hover {color: #F72A57;transition: .1s ease-in-out;border: none;}
+nav.navbar.navbar-expand-lg.bg-white.navbar-white.fixed-top
+      .container
+        a.navbar-brand(href='/') 
+          |
+          img(src=`/static/n.png`, alt="image" style="height: ; width: 35px;")
+          .row.m-0.p-0
+            .col
+              h1.lh-3(style='font-size: 15px;margin: 0px;') ABDULLAH AL NOMAN 
+              footer.lh-1.text-primary(style='font-size: 14.4px;') Software Developer 
+          
+        button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+          ul.navbar-nav.ms-auto.mb-2.mb-lg-0
+            if !role
+              li.nav-item.ms-0.ms-md-3
+                a.nav-link.active(aria-current='page' href='/') Home
+            if role === 'user'
+              li.nav-item.ms-0.ms-md-3
+                a.nav-link.active(href='/home')
+                  i.fa-solid.fa-home.fs-4.home
+
+              li.nav-item.ms-0.ms-md-3
+                a.nav-link.active(href='/user/dashboard') My Dashboard
+              li.nav-item.ms-0.ms-md-3
+                a.nav-link.active(href='/user/post') 
+                  i.fa-solid.fa-users-gear.fa-lg(style='color: #F72A57')
+                  |  My Post!
+
+            else if role === 'admin'
+              li.nav-item.ms-0.ms-md-3
+                a.nav-link.active(href='/admin/dashboard') Admin Dashboard
+
+              
+              li.nav-item.dropdown.ms-0.ms-md-3
+                a.nav-link.dropdown-toggle.active(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                  | User Management
+                ul.dropdown-menu
+                  li
+                    a.dropdown-item(href='/admin/update-Role')  
+                      i.fa-solid.fa-file-pen.fa-lg(style='color: red;')
+                      |  User Update-Role  
+                  li
+                    hr.dropdown-divider
+                  li
+                    a.dropdown-item(href='/admin/all/users')  
+                      i.fa-solid.fa-users-gear.fa-lg(style='color: red;')
+                      |   All User Settings 
+                
+              li.nav-item.dropdown.ms-0.ms-md-3
+                a.nav-link.dropdown-toggle.active.lead(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                  | Reports Files
+                ul.dropdown-menu
+                  li
+                    a.dropdown-item.my-2(href='/admin/hero')  
+                      i.fa-brands.fa-superpowers(style='color: red')
+                      |  HERO
+                  li
+                    hr.dropdown-divider
+                  li
+                    a.dropdown-item.my-2(href='/admin/services') 
+                      i.fa-solid.fa-gear(style='color: red')
+                      |  SERVICES
+                         
+                  li
+                    hr.dropdown-divider
+                  li
+                    a.dropdown-item.my-2(href='/admin/product')  
+                      i.fa-solid.fa-gift(style='color: red')
+                      |  PRODUCT
+
+                  li
+                    a.dropdown-item.my-2(href='/admin/product/view') PRODUCT VIEW 
+                      //- i.fa-solid.fa-eye
+                  li
+                    hr.dropdown-divider
+                  li
+                    a.dropdown-item.my-2(href='/admin/footer') 
+                      i.fa-solid.fa-hand-holding-heart(style='color: red')
+                      |  Footer
+                  li
+                    a.dropdown-item.my-2(href='/admin/footer/view') Footer VIEW 
+                      //- i.fa-solid.fa-eye
+
+            li.nav-item.dropdown.ms-0.ms-md-3
+              a.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                | Account 
+              ul.dropdown-menu
+                if !role
+                  li
+                    a.dropdown-item(href='/login') Login
+                  li
+                    hr.dropdown-divider
+                  li
+                    a.dropdown-item(href='/register') Register
+                  
+                if role 
+                  //- li
+                  //-   hr.dropdown-divider
+                  li
+                    a.dropdown-item(href='/logout') 
+                      i.fa-solid.fa-power-off.text-danger
+                      |  Logout
+                      

@@ -1,0 +1,43 @@
+extends ../layout 
+
+
+block content 
+
+    style.
+        body{background: #364150;}
+
+    .container(style='margin-top: 120px;') 
+
+    .row 
+        .col-md-10.mx-auto
+            .card.shadow.mb-5
+                .card-body
+
+                    if message
+                        .alert.alert-warning.alert-dismissible.fade.show.mx-auto.text-center.rounded-0(role='alert' style=' border-left: 5px solid red; ')
+                            span= message
+                            button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+
+                    if successMessage
+                        .alert.alert-primary.alert-dismissible.fade.show.mx-auto.text-center(role='alert')
+                            span= successMessage
+                            button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+
+                    h1.card-header.text-center.mb-5(style=' border-bottom: 3px solid coral;') MY PRODUCT
+
+                    form(action="/admin/product" method="post" enctype="multipart/form-data" style='')
+
+                        .row 
+                            .col-md-6
+                                .form-outline.mb-3(data-mdb-input-init='')
+                                    input#formControlLg.form-control.form-control-lg(type='text' name='heading')
+                                    label.form-label(for='') Heading
+                            .col-md-6
+                                .form-outline.mb-3(data-mdb-input-init='')
+                                    input#formFileLg.form-control.form-control-lg(type='file' name='image')
+
+                        .form-outline.mb-3(data-mdb-input-init='')
+                            textarea#textAreaExample.form-control(rows='4' name='message')
+                            label.form-label(for='') Message
+                            
+                        button.btn.btn-primary.text-capitalize(type="submit") Submit

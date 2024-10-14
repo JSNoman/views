@@ -1,0 +1,171 @@
+extends layout
+
+block content 
+
+    style.
+        body{background: #F0F1F3;}
+        .submitt {width: 130px;height: 40px; border: none;color: black;font-weight: 500; border: .5px solid green;}
+        .submitt:hover {background-color: #58BF14; color: white;transition: .2s ease-in-out;}
+        .close {width: 130px;height: 40px;border: .5px solid #F72A57;color: black;font-weight: 500;}
+        .close:hover {background-color: red;transition: .2s ease-in-out;color: white;border-width: 2px;}
+
+
+    .container-fluid(style='margin-top: 90px;')
+    
+        if errorMessage
+            .alert.alert-info.alert-dismissible.fade.show.mx-auto.rounded-0(role='alert' style=' border-left: 5px solid #0DCAF0; ')
+                span= errorMessage
+                button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+                
+        if message
+            .alert.alert-info.alert-dismissible.fade.show.mx-auto.rounded-0(role='alert' style=' border-left: 5px solid #0DCAF0; ')
+                span= message
+                button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+        .row
+            .col-sm-3.mb-3.mb-sm-0
+                .card.rounded-0.shadow-0
+                    img.imag-fluid.rounded-circle.mx-auto.d-block.mt-4(src=`/uploads/${user.profile}` style='height: 120px; width: 120px;')
+                    .card-body
+                        h5.card-title.text-center #{user.username}
+                    ul.list-group.list-group-flush.p-1
+                        li.list-group-item
+                            i.fa-solid.fa-file-pen.fa-lg(style='color: #F72A57')
+                            |  
+                            a.text-dark.text-decoration-none(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@getbootstrap') Edit profile
+                            #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                                .modal-dialog
+                                    .modal-content
+                                        .modal-header
+                                            h1#exampleModalLabel.modal-title.fs-5 Edit profile
+                                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                        .modal-body
+                                            form(action="/user/profile" method="post" enctype="multipart/form-data")
+                                                .row 
+                                                    .col-lg-12
+                                                        label(for="") Profile
+                                                        .form-outline.mb-3(data-mdb-input-init='')
+                                                            input#formControlLg.form-control.form-control-lg(type='file' name='profile')
+                                                    //- .col-lg-12
+                                                    //-     label(for="") Banner
+                                                    //-     .form-outline.mb-3(data-mdb-input-init='')
+                                                    //-         input#formControlLg.form-control.form-control-lg(type='file' name='banner')
+
+                                                    .modal-footer
+                                                        button.close(type='button' data-bs-dismiss='modal') Close
+                                                        button.submitt(type="submit") 
+                                                            i.fa-solid.fa-arrow-up 
+                                                            |  Upload
+                        li.list-group-item
+                            i.fa-solid.fa-envelope.fs-5(style='color: #F72A57')
+                            |
+                            span.p-1  #{user.email}
+                        li.list-group-item
+                            i.fa-solid.fa-gear.fs-5(style='color: #F72A57') 
+                            |
+                            span.p-1  #{user.role}
+            .col-sm-9
+                .card.rounded-0.shadow-0
+                    .card-body
+                        i.fas.fa-tachometer-alt.fs-2  
+                        span.fs-2  Dashboard
+
+                    .row.g-3.p-2
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #4e73df;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (My Post)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ #{post.length} 
+                                        .col-auto
+                                            i.fa-solid.fa-users-gear.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #1cc88a;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Services)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $
+                                        .col-auto
+                                            i.fa-solid.fa-wrench.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #36b9cc;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Product)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ 
+                                        .col-auto
+                                           i.fa-solid.fa-gift.fa-2x(style='color: #DDDFEB;')
+
+                        .col-xl-3.col-md-6.mb-4
+                            .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #e74a3b;')
+                                .card-body 
+                                    .row.no-gutters.align-items-center
+                                        .col.mr-2
+                                            .font-weight-bold.mb-1
+                                            | (Comments)
+                                            .h5.mb-0.font-weight-bold.text-gray-800 $ 
+                                        .col-auto
+                                            i.fas.fa-comment.fa-2x(style='color: #DDDFEB;')
+                    //- .row.g-3.p-2
+                    //-     .col-xl-3.col-md-6.mb-4
+                    //-         .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #e74a3b;')
+                    //-             .card-body 
+                    //-                 .row.no-gutters.align-items-center
+                    //-                     .col.mr-2
+                    //-                         .font-weight-bold.mb-1
+                    //-                         | (User)
+                    //-                         .h5.mb-0.font-weight-bold.text-gray-800 $ 40,000
+                    //-                     .col-auto
+                    //-                         i.fa-solid.fa-user.fa-2x(style='color: #DDDFEB;')
+
+                    //-     .col-xl-3.col-md-6.mb-4
+                    //-         .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #1cc88a;')
+                    //-             .card-body 
+                    //-                 .row.no-gutters.align-items-center
+                    //-                     .col.mr-2
+                    //-                         .font-weight-bold.mb-1
+                    //-                         | (Services)
+                    //-                         .h5.mb-0.font-weight-bold.text-gray-800 $40,000
+                    //-                     .col-auto
+                    //-                         i.fa-solid.fa-wrench.fa-2x(style='color: #DDDFEB;')
+
+                    //-     .col-xl-3.col-md-6.mb-4
+                    //-         .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #36b9cc;')
+                    //-             .card-body 
+                    //-                 .row.no-gutters.align-items-center
+                    //-                     .col.mr-2
+                    //-                         .font-weight-bold.mb-1
+                    //-                         | (Product)
+                    //-                         .h5.mb-0.font-weight-bold.text-gray-800 $40,000
+                    //-                     .col-auto
+                    //-                        i.fa-solid.fa-cart-shopping.fa-2x(style='color: #DDDFEB;')
+
+                    //-     .col-xl-3.col-md-6.mb-4
+                    //-         .card.border-0.shadow-0.h-100.py-2.text-white(style='background: #4e73df;')
+                    //-             .card-body 
+                    //-                 .row.no-gutters.align-items-center
+                    //-                     .col.mr-2
+                    //-                         .font-weight-bold.mb-1
+                    //-                         | (Footer)
+                    //-                         .h5.mb-0.font-weight-bold.text-gray-800 $40,000
+                    //-                     .col-auto
+                    //-                         i.fas.fa-copyright.fa-2x(style='color: #DDDFEB;')
+
+        //- h1 Your Profile
+
+        //- if user.profile
+        //-     img(src=`/uploads/${user.profile}` alt="Profile Image" width="100")
+        //- else
+        //-     p No Profile Image
+
+        //- if user.banner
+        //-     img(src=`/uploads/${user.banner}` alt="Banner Image" width="100")
+        //- else
+        //-     p No Banner Image

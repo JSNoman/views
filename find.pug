@@ -1,0 +1,259 @@
+//- extends layout
+
+
+//- block content
+
+//-   .container(style='margin-top: 130px;')
+//-     button.btn.btn-outline-success.btn-sm.mb-3(type="button" id="addBtn") Add New Item
+//-     form(action="/invoice" method="post")
+//-       .row#dynamicFields
+//-         .mb-3
+//-           button.btn.btn-outline-danger.btn-sm.i.bi.bi-x-lg 
+//-           button.btn.btn-outline-success.btn-sm.i.bi.bi-floppy(type="submit") 
+
+//-   script.
+//-     document.getElementById('addBtn').onclick = () => {
+//-       const dynamicFields = document.getElementById('dynamicFields');
+//-       const row = document.createElement('div');
+//-       row.className = 'row mb-3';
+      
+//-       const referenceCol = document.createElement('div');
+//-       referenceCol.className = 'col-sm-4';
+//-       const referenceInput = document.createElement('input');
+//-       referenceInput.type = 'number';
+//-       referenceInput.className = 'form-control';
+//-       referenceInput.placeholder = 'Reference';
+//-       referenceInput.name = 'reference';
+//-       referenceCol.appendChild(referenceInput);
+//-       row.appendChild(referenceCol);
+
+//-       const quantityCol = document.createElement('div');
+//-       quantityCol.className = 'col-sm-4';
+//-       const quantityInput = document.createElement('input');
+//-       quantityInput.type = 'number';
+//-       quantityInput.className = 'form-control';
+//-       quantityInput.placeholder = 'Quantity';
+//-       quantityInput.name = 'quantity';
+//-       quantityCol.appendChild(quantityInput);
+//-       row.appendChild(quantityCol);
+
+//-       const priceCol = document.createElement('div');
+//-       priceCol.className = 'col-sm-4';
+//-       const priceInput = document.createElement('input');
+//-       priceInput.type = 'number';
+//-       priceInput.className = 'form-control';
+//-       priceInput.placeholder = 'Price';
+//-       priceInput.name = 'price';
+//-       priceCol.appendChild(priceInput);
+//-       row.appendChild(priceCol);
+
+//-       const getItemsCol = document.createElement('div');
+//-       getItemsCol.className = 'col-sm-4';
+//-       const getItemsButton = document.createElement('button');
+//-       getItemsButton.type = 'button';
+//-       getItemsButton.className = 'btn btn-outline-primary mb-3 btn-sm';
+//-       getItemsButton.innerText = 'Get Items';
+//-       getItemsButton.onclick = () => {
+//-         const reference = referenceInput.value;
+//-         fetch(`/getRequisitionData?references=${reference}`)
+//-           .then(response => {
+//-             if (!response.ok) {
+//-               throw new Error('No data found');
+//-             }
+//-             return response.json();
+//-           })
+//-           .then(data => {
+//-             if (data.length > 0) {
+//-               const item = data[0];
+//-               referenceInput.value = item.reference;
+//-               quantityInput.value = item.quantity;
+//-               priceInput.value = item.price;
+//-             }
+//-           })
+//-           .catch(error => {
+//-             alert(error.message);
+//-           });
+//-       };
+//-       getItemsCol.appendChild(getItemsButton);
+//-       row.appendChild(getItemsCol);
+
+//-       dynamicFields.appendChild(row);
+//-     };
+
+extends layout
+
+block content
+  .container(style='margin-top: 130px;')
+    button.btn.btn-outline-success.btn-sm.mb-3(type="button" id="addBtn") Add New Item
+    form(action="/invoice" method="post")
+      .row#dynamicFields
+        .mb-3
+          button.btn.btn-outline-success.btn-sm(type="submit") Submit
+
+  script.
+    document.getElementById('addBtn').onclick = () => {
+      const dynamicFields = document.getElementById('dynamicFields');
+      const row = document.createElement('div');
+      row.className = 'row mb-3';
+
+      const createInputCol = (placeholder, name) => {
+        const col = document.createElement('div');
+        col.className = 'col-sm-2';
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.className = 'form-control';
+        input.placeholder = placeholder;
+        input.name = name;
+        col.appendChild(input);
+        return col;
+      };
+
+      const referenceCol = createInputCol('Reference', 'reference');
+      row.appendChild(referenceCol);
+
+      const quantityCol = createInputCol('Quantity', 'quantity');
+      row.appendChild(quantityCol);
+
+      const priceCol = createInputCol('Price', 'price');
+      row.appendChild(priceCol);
+
+      const sellQuantityCol = createInputCol('Sell Quantity', 'sellquantity');
+      row.appendChild(sellQuantityCol);
+
+      const sellPriceCol = createInputCol('Sell Price', 'sellprice');
+      row.appendChild(sellPriceCol);
+
+      const totalCol = document.createElement('div');
+      totalCol.className = 'col-sm-2';
+      const totalInput = document.createElement('input');
+      totalInput.type = 'number';
+      totalInput.className = 'form-control';
+      totalInput.placeholder = 'Total';
+      totalInput.name = 'total';
+      totalInput.readOnly = true;
+      totalCol.appendChild(totalInput);
+      row.appendChild(totalCol);
+
+      // Calculate total when sellquantity or sellprice changes
+      sellQuantityCol.querySelector('input').oninput = () => {
+        const sellQuantity = sellQuantityCol.querySelector('input').value;
+        const sellPrice = sellPriceCol.querySelector('input').value;
+        totalInput.value = sellQuantity * sellPrice;
+      };
+
+      sellPriceCol.querySelector('input').oninput = () => {
+        const sellQuantity = sellQuantityCol.querySelector('input').value;
+        const sellPrice = sellPriceCol.querySelector('input').value;
+        totalInput.value = sellQuantity * sellPrice;
+      };
+
+      const getItemsCol = document.createElement('div');
+      getItemsCol.className = 'col-sm-2';
+      const getItemsButton = document.createElement('button');
+      getItemsButton.type = 'button';
+      getItemsButton.className = 'btn btn-outline-primary mb-3 btn-sm';
+      getItemsButton.innerText = 'Get Items';
+      getItemsButton.onclick = () => {
+        const reference = referenceCol.querySelector('input').value;
+        fetch(`/getData?references=${reference}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('No data found');
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data.length > 0) {
+              const item = data[0];
+              referenceCol.querySelector('input').value = item.reference;
+              quantityCol.querySelector('input').value = item.quantity;
+              priceCol.querySelector('input').value = item.price;
+            }
+          })
+          .catch(error => {
+            alert(error.message);
+          });
+      };
+      getItemsCol.appendChild(getItemsButton);
+      row.appendChild(getItemsCol);
+
+      dynamicFields.appendChild(row);
+    };
+
+
+
+//- extends layout
+
+//- block content
+//-   .container(style='margin-top: 130px;')
+//-     button.btn.btn-outline-success.btn-sm.mb-3(type="button" id="addBtn") Add New Item
+//-     form(action="/invoice" method="post")
+//-       .row#dynamicFields
+//-         .mb-3
+//-           button.btn.btn-outline-success.btn-sm(type="submit") Submit
+
+//-   script.
+//-     document.getElementById('addBtn').onclick = () => {
+//-       const dynamicFields = document.getElementById('dynamicFields');
+//-       const row = document.createElement('div');
+//-       row.className = 'row mb-3';
+
+//-       const createInputCol = (placeholder, name) => {
+//-         const col = document.createElement('div');
+//-         col.className = 'col-sm-2';
+//-         const input = document.createElement('input');
+//-         input.type = 'number';
+//-         input.className = 'form-control';
+//-         input.placeholder = placeholder;
+//-         input.name = name;
+//-         col.appendChild(input);
+//-         return col;
+//-       };
+
+//-       const referenceCol = createInputCol('Reference', 'reference');
+//-       row.appendChild(referenceCol);
+
+//-       const quantityCol = createInputCol('Quantity', 'quantity');
+//-       row.appendChild(quantityCol);
+
+//-       const priceCol = createInputCol('Price', 'price');
+//-       row.appendChild(priceCol);
+
+//-       const sellQuantityCol = createInputCol('Sell Quantity', 'sellquantity');
+//-       row.appendChild(sellQuantityCol);
+
+//-       const sellPriceCol = createInputCol('Sell Price', 'sellprice');
+//-       row.appendChild(sellPriceCol);
+
+//-       const getItemsCol = document.createElement('div');
+//-       getItemsCol.className = 'col-sm-4';
+//-       const getItemsButton = document.createElement('button');
+//-       getItemsButton.type = 'button';
+//-       getItemsButton.className = 'btn btn-outline-primary mb-3 btn-sm';
+//-       getItemsButton.innerText = 'Get Items';
+//-       getItemsButton.onclick = () => {
+//-         const reference = referenceCol.querySelector('input').value;
+//-         fetch(`/getData?references=${reference}`)
+//-           .then(response => {
+//-             if (!response.ok) {
+//-               throw new Error('No data found');
+//-             }
+//-             return response.json();
+//-           })
+//-           .then(data => {
+//-             if (data.length > 0) {
+//-               const item = data[0];
+//-               referenceCol.querySelector('input').value = item.reference;
+//-               quantityCol.querySelector('input').value = item.quantity;
+//-               priceCol.querySelector('input').value = item.price;
+//-             }
+//-           })
+//-           .catch(error => {
+//-             alert(error.message);
+//-           });
+//-       };
+//-       getItemsCol.appendChild(getItemsButton);
+//-       row.appendChild(getItemsCol);
+
+//-       dynamicFields.appendChild(row);
+//-     };

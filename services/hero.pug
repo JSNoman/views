@@ -1,0 +1,119 @@
+extends ../layout 
+
+
+block content 
+    style.
+        body{background: #F0F1F3;}
+    .container-fluid(style='margin-top: 120px;')
+        .row.d-flex.justify-content-center.align-items-center
+            .col-md-6
+
+                if errorMessage
+                    .alert.alert-warning.alert-dismissible.fade.show.mx-auto.rounded-0(role='alert' style=' border-left: 5px solid red; ')
+                        span= errorMessage
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+
+                if message
+                    .alert.alert-dismissible.alert-info.fade.show.mx-auto.rounded-0.shadow(role='alert' style=' border-left: 5px solid green; ')
+                        span= message
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+                        
+                if deleteMessage
+                    .alert.alert-dismissible.fade.show.mx-auto.alert-danger.rounded-0.shadow(role='alert' style=' border-left: 5px solid red; ')
+                        span.lead= deleteMessage
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+
+    .container-fluid.px-4
+        .card.text-bg-white.shadow.mb-4
+            .card-header.position-relative
+                span.lead.position-absolute.top-50.start-50.translate-middle.fw-bold MY HERO
+                button.btn.btn-outline-dark.float-start.rounded-0(style='border-left-color: #FC004D; border-right-color: #FC004D; border-width: 2px;' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@getbootstrap').i.fa-solid.fa-plus.fa-2xl.fw-bold.text-capitalize  New
+                #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                    .modal-dialog.modal-lg
+                        .modal-content
+                            .modal-header
+                                h1#exampleModalLabel.modal-title.fs-5 New message
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                            .modal-body
+                                form(action="/admin/hero" method="post" enctype="multipart/form-data")
+
+                                    .row 
+                                        .col-lg-4
+                                            .form-outline.mb-3(data-mdb-input-init='')
+                                                input#formControlLg.form-control.form-control-lg(type='text' name='colorText')
+                                                label.form-label(for='') Color Text
+                                            
+                                        .col-lg-4
+                                            .form-outline.mb-3(data-mdb-input-init='')
+                                                input#formControlLg.form-control.form-control-lg(type='text' name='smallTitle')
+                                                label.form-label(for='') Small Title
+
+                                        .col-lg-4
+                                            .form-outline.mb-3(data-mdb-input-init='')
+                                                input#formControlLg.form-control.form-control-lg(type='text' name='contact')
+                                                label.form-label(for='') Whatsapp Start 880
+                                    .row 
+                                        .col-lg-6
+                                            label(for="") Upload CV
+                                            .form-outline.mb-3(data-mdb-input-init='')
+                                                input#formControlLg.form-control.form-control-lg(type='file' name='cv')
+
+                                        .col-lg-6
+                                            label(for="") Upload image
+                                            .form-outline.mb-3(data-mdb-input-init='')
+                                                input#formControlLg.form-control.form-control-lg(type='file' name='image')
+                                    .row 
+
+                                        .col-lg-6
+                                            .form-outline.mb-3(data-mdb-input-init='')
+                                                textarea#textAreaExample.form-control(rows='4' name='message')
+                                                label.form-label(for='') First
+
+                                        .col-lg-6
+                                            .form-outline.mb-3(data-mdb-input-init='')
+                                                textarea#textAreaExample.form-control(rows='4' name='secondMessage')
+                                                label.form-label(for='') Second
+                                        div
+                                            button.submit(type="submit") 
+                                                i.fa-solid.fa-arrow-up 
+                                                |  Post
+ 
+            .card-body
+                .table-responsive.p-1
+                    table#example.table.table-hover.table-sm(style='width:100%')
+                        thead
+                            tr.border
+                                th(scope='col') ID
+                                th.text-center(scope='col') Color
+                                th(scope='col').text-center Small
+                                th(scope='col').text-center Contact
+                                th(scope='col').text-center First
+                                th(scope='col').text-center Second
+                                th(scope='col').text-center CV
+                                th(scope='col').text-center Image
+                                th(scope='col').text-center Actions
+                            tbody
+                                each noman in hero
+                                    tr
+                                        td.px-4(scope='row')=noman.id
+                                        td.text-center.px-5=noman.colorText
+                                        td.text-center.px-5=noman.smallTitle.substring(0,50)
+                                        td.text-center.px-5=noman.contact.substring(0,50)
+                                        td.text-center.px-5=noman.message.substring(0,50)
+                                        td.text-center.px-5=noman.secondMessage.substring(0,50)
+                                        td=noman.cv
+                                            if noman.cv 
+                                                //- small.text-muted Current CV: #{noman.cv}
+                                                a(href=`/uploads/${noman.cv}` target="_blank").text-decoration-none   View CV 
+                                                input(type="hidden" name="existingCv" value=noman.cv)
+
+                                        td
+                                            img.img-fluid.rounded-circle.my-3.mx-auto.d-block.text-center(src=`/uploads/${noman.image}`, alt="image" style='width: 70px; height: 70px;')
+                                        td
+                                            .d-grid.gap-2.d-md-flex.justify-content-md-center
+                                                a.btn.btn-outline-success.btn-sm(href=`/admin/heroView/${noman.id}`)
+                                                    i.fa-solid.fa-eye
+                                                a.btn.btn-outline-primary.btn-sm(href=`/admin/heroEdit/${noman.id}`)
+                                                    i.fa-solid.fa-pen-to-square
+                                                a.btn.btn-outline-danger.btn-sm(href=`/admin/hero/delete/${noman.id}`) 
+                                                    i.fa-solid.fa-trash

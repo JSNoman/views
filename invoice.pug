@@ -1,0 +1,149 @@
+//- extends layout
+
+//- block content 
+
+//-     h3(style='margin-top: 130px;') 
+
+//-     .card.shadow(style='margin-top: 130px;')
+//-         .card-header
+//-             h4.card-title.text-center Create new Invoice
+//-             button.btn.btn-outline-success.mb-2.btn-sm(type="button" id="addBtn") addnewbutton
+//-         .card-body
+//-             .container 
+//-                 form(action="/invoice", method="post")
+//-                     .row.g-3
+//-                         .col-md-3
+//-                             label.form-label(for='') Reference to find data
+//-                             input.form-control.border-info(type='number', name='reference')
+//-                         .col-md-3
+//-                             label.form-label(for='') Quantity
+//-                             input.form-control.border-info(type='number', name='quantity' , value=requisition.quantity)
+//-                         .col-md-2
+//-                             label.form-label(for='') Price
+//-                             input.form-control.border-info(type='number', name='price', value=requisition.price)
+//-                         .col-12
+//-                             button.btn.btn-outline-dark.btn-sm(type='submit') Get Reference
+
+
+extends layout
+
+block content
+    h3(style='margin-top: 130px;') Invoice Details
+    .card.shadow(style='margin-top: 20px;')
+        .card-body
+            .container 
+                form(action="/invoice", method="post")
+                    .row.g-3
+                        .col-md-4
+                            label.form-label(for='reference') Enter Reference Number:
+                            input.form-control.border-info(type='number', name='reference', placeholder='Enter Reference Number')
+                        .mb-3
+                            button.btn.btn-outline-dark.btn-sm(type='submit') Get Reference
+
+    if requisition
+        .card.shadow(style='margin-top: 20px;')
+            .card-body
+                .container 
+                    form(action="/invoice", method="post")
+                        .row.g-3
+                            .col-md-6
+                                label.form-label(for='quantity') Quantity:
+                                input.form-control.border-info(type='number', name='quantity', value=requisition.quantity)
+                            .col-md-6
+                                label.form-label(for='price') Price:
+                                input.form-control.border-info(type='number', name='price', value=requisition.price)
+                            .col-12
+                                button.btn.btn-outline-dark.btn-sm(type='submit') Create Invoice
+
+
+
+
+//- extends layout
+
+//- block content
+
+//-     .card.shadow(style='margin-top: 100px;')
+//-         .card-header
+//-             h4.card-title.text-center Invoice
+//-             button.btn.btn-outline-success.mb-2.btn-sm(type="button" id="addBtn") Add New Field
+//-         .card-body
+//-             .container 
+//-                 form(action="/invoice", method="post")
+//-                     #formContainer.row.g-3
+//-                         .col-md-2
+//-                             label.form-label(for='') Reference
+//-                             input.form-control.border-info(type='number', name='reference', value=requisition.reference)
+//-                         .col-md-2
+//-                             label.form-label(for='') Quantity
+//-                             input.form-control.border-info(type='number', name='quantity', value=requisition.quantity)
+//-                         .col-md-2
+//-                             label.form-label(for='') Price
+//-                             input.form-control.border-info(type='number', name='price', value=requisition.price)
+//-                         .col-12
+//-                             button.btn.btn-dark.btn-sm(type='submit') Get Reference
+
+//-     script.
+//-         document.getElementById('addBtn').addEventListener('click', function() {
+//-             var formContainer = document.getElementById('formContainer');
+//-             var newRow = document.createElement('div');
+//-             newRow.className = 'row g-3';
+//-             newRow.innerHTML = `
+//-             <div class="col-md-2">
+//-                 <label class="form-label" for="">Reference</label>
+//-                 <input class="form-control border-info" type="number" name="reference">
+//-             </div>
+//-             <div class="col-md-2">
+//-                 <label class="form-label" for="">Quantity</label>
+//-                 <input class="form-control border-info" type="number" name="quantity">
+//-             </div>
+//-             <div class="col-12">
+//-                 <button class="btn btn-dark btn-sm" type="submit">Get Reference</button>
+//-             </div>
+//-             `;
+//-             formContainer.appendChild(newRow);
+//-         });
+
+
+
+
+
+
+    //- .card.shadow(style='margin-top: 100px;')
+    //-     .card-header
+    //-         h4.card-title.text-center Create new Invoice
+    //-         button.btn.btn-outline-success.mb-2.btn-sm(type="button" id="addBtn") Add New Field
+    //-     .card-body
+    //-         .container 
+    //-             form(action="/sell", method="post")
+    //-                 .row.g-3(id="formContainer")
+    //-                     .col-md-2
+    //-                         label.form-label(for='') Reference
+    //-                         input.form-control.border-info(type='number', name='reference')
+    //-                     .col-md-2
+    //-                         label.form-label(for='') Quantity
+    //-                         input.form-control.border-info(type='number', name='quantity')
+    //-                     .col-12
+    //-                         button.btn.btn-dark.btn-sm(type='submit') Get Reference
+
+
+    //- script.
+    //-     document.getElementById('addBtn').addEventListener('click', function() {
+    //-         var formContainer = document.getElementById('formContainer');
+    //-         var newRow = document.createElement('div');
+    //-         newRow.className = 'row g-3';
+    //-         newRow.innerHTML = `
+    //-         <div class="col-md-2">
+    //-             <label class="form-label" for="">Reference</label>
+    //-             <input class="form-control border-info" type="number" name="reference">
+    //-         </div>
+    //-         <div class="col-md-2">
+    //-             <label class="form-label" for="">Quantity</label>
+    //-             <input class="form-control border-info" type="number" name="quantity">
+    //-         </div>
+    //-         </div>
+    //-         <div class="col-12">
+    //-             <button class="btn btn-dark btn-sm" type="submit">Get Reference</button>
+    //-         </div>
+    //-         `;
+    //-         formContainer.appendChild(newRow);
+    //-     });

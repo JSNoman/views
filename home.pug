@@ -1,0 +1,137 @@
+extends layout 
+
+
+block content 
+    style.
+        body{background: #F0F1F3;}
+        .new {width: 92px;background-color: #F72A57;border: 2px solid #F72A57;color: white;font-weight: 500;}
+        .new:hover {background-color: black;color: white;transition: .2s ease-in-out;border-left-color: #00FFED;border-right-color: #FC004D;border-bottom-color: black;border-top-color: black;border-width: 2px;}
+        .submitt {width: 130px;height: 40px; background-color: #58BF14;border: none;color: white;font-weight: 500;}
+        .submitt:hover {border: .5px solid green;color: black;transition: .2s ease-in-out;background: none;}
+        .close {width: 130px;height: 40px;border: .5px solid #F72A57;color: black;font-weight: 500;}
+        .close:hover {background-color: red;transition: .2s ease-in-out;color: white;border-width: 2px;}
+        .like-icon {
+            left: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .share-icon {
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+    .container(style='margin-top: 120px;')
+
+        .row.d-flex.justify-content-center.align-items-center
+            .col-md-6
+                if errorMessage
+                    .alert.alert-warning.alert-dismissible.fade.show.mx-auto.rounded-0(role='alert' style=' border-left: 5px solid red; ')
+                        span= errorMessage
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+
+                if message
+                    .alert.alert-info.alert-dismissible.fade.show.mx-auto.rounded-0(role='alert' style=' border-left: 5px solid #0DCAF0; ')
+                        span= message
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+
+                if deleteMessage
+                    .alert.alert-danger.alert-dismissible.fade.show.mx-auto.rounded-0(role='alert' style=' border-left: 5px solid red; ')
+                        span= deleteMessage
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+    
+    .container.content
+        .col-sm-12.col-md-10.col-lg-8.col-xl-7.mb-3.mb-sm-3.mt-sm-3.mx-auto.d-block
+            .card.rounded-0(style='max-width: 600px; margin: 20px auto;')
+                .card-body
+                    form(action="/home" method="post" enctype="multipart/form-data")
+                        .row 
+                            .col-lg-12
+                                .form-outline.mb-3(data-mdb-input-init='')
+                                    input#formControlLg.form-control.form-control-lg(type='text' name='title')
+                                    label.form-label(for='') Title
+                            .col-lg-12
+                                .form-outline.mb-3(data-mdb-input-init='')
+                                    input#formControlLg.form-control.form-control-lg(type='file' name='image' style=height='150px; width; 150px; ')
+                            .col-lg-12
+                                .form-outline.mb-3(data-mdb-input-init='')
+                                    textarea#textAreaExample.form-control(rows='4' name='message')
+                                    label.form-label(for='') Whats on Your Mind?
+                        .modal-footer
+                            button.submitt(type="submit") 
+                                i.fa-solid.fa-paper-plane 
+                                |  Post  
+    //- test for the modal 
+        .row 
+            a(href="" type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@getbootstrap') New
+            #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            h1#exampleModalLabel.modal-title.fs-5 New Post
+                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                        .modal-body
+                            form(action="/user/post" method="post" enctype="multipart/form-data")
+
+                                .row 
+                                    .col-lg-12
+                                        .form-outline.mb-3(data-mdb-input-init='')
+                                            input#formControlLg.form-control.form-control-lg(type='text' name='title')
+                                            label.form-label(for='') Title
+                                    .col-lg-12
+                                        .form-outline.mb-3(data-mdb-input-init='')
+                                            input#formControlLg.form-control.form-control-lg(type='file' name='image')
+                                    .col-lg-12
+                                        .form-outline.mb-3(data-mdb-input-init='')
+                                            textarea#textAreaExample.form-control(rows='4' name='message')
+                                            label.form-label(for='') Message
+                                    .modal-footer
+                                        button.close(type='button' data-bs-dismiss='modal') Close
+                                        button.submitt(type="submit") 
+                                            i.fa-solid.fa-arrow-up 
+                                            |  Post  
+    //- .container
+    //-     each noman in allPost
+    //-         .col-sm-12.col-md-10.col-lg-8.col-xl-7.mb-3.mb-sm-3.mt-sm-3.mx-auto.d-block
+    //-             .card.rounded-0
+    //-                 img.img-fluid(src=`/uploads/${noman.image}` alt='')
+    //-                 div 
+    //-                 .card-body
+    //-                     //- h5.card-title #{noman.title.substring(0,50)}
+    //-                     p.card-text.fw-bold #{noman.title.substring(0,50)}
+    //-                     |
+    //-                     span    #{noman.message.substring(0,190)}
+    //-                     a.text-decoration-none(href='#')  more..
+    //- .container
+    //-     each noman in allPost
+    //-         .col-sm-12.col-md-10.col-lg-8.col-xl-7.mb-3.mb-sm-3.mt-sm-3.mx-auto.d-block
+    //-             .card.rounded-0
+    //-                 img.img-fluid(src=`/uploads/${noman.image}` alt='')
+    //-                 div 
+    //-                 .card-body
+    //-                     //- h5.card-title #{noman.title.substring(0,50)}
+    //-                     p.card-text.fw-bold #{noman.title.substring(0,50)}
+    //-                     |
+    //-                     span    #{noman.message.substring(0,190)}
+    //-                     a.text-decoration-none(href='#')  more..
+
+    .container
+        each noman in allPost
+            .col-sm-12.col-md-10.col-lg-8.col-xl-7.mb-3.mb-sm-3.mt-sm-3.mx-auto.d-block
+                .card(style='max-width: 600px; margin: 20px auto;')
+                    .card-body.d-flex.align-items-center
+                        img.rounded-circle.me-3(src='/static/n.png' alt='Profile Image' style='width: 50px; height: 50px;')
+                        div
+                        h6.card-title.mb-0 Username
+                    .card-body.p-0
+                        p.px-3 #{noman.message.substring(0,190)} 
+                        img.img-fluid(src=`/uploads/${noman.image}` alt='')
+                        
+
+                    .card-footer.bg-transparent.position-relative 
+                        hr.mb-5
+                        i.fa-solid.fa-thumbs-up.fa-xl.text-secondary.position-absolute.like-icon
+                        i.fa-regular.fa-message.fa-xl.text-secondary.position-absolute.top-50.start-50
+                        hr.mt-5
+                        i.fa-solid.fa-share.fa-xl.text-secondary.position-absolute.share-icon

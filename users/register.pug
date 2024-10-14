@@ -1,0 +1,54 @@
+extends ../layout 
+
+
+block content 
+
+    style.
+        body{background: #364150;}
+
+    .container(style='margin-top: 120px; overflow: hidden;') 
+
+        .row 
+            .col-lg-7.mx-auto
+                .card.shadow.rounded-0(data-aos='fade-left' data-aos-anchor='#example-anchor' data-aos-offset='500' data-aos-duration='500')
+                    img.img-fluid.rounded.mt-2.rounded-circle.mx-auto.d-block(src=`/static/n.png`, alt="image" style="height: ; width: 70px;")
+
+                    .card-body
+                        if successMessage
+                            .alert.alert-warning.alert-dismissible.fade.show.mx-auto.text-center.rounded-0(role='alert' style=' border-left: 5px solid red; ' data-aos='fade-down' data-aos-easing='linear' data-aos-duration='1500')
+                                span= successMessage
+                                button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+                                
+                        if errorMessage
+                            .alert.alert-warning.alert-dismissible.fade.show.mx-auto.text-center.rounded-0(role='alert' style=' border-left: 5px solid red; ' data-aos='fade-down' data-aos-easing='linear' data-aos-duration='1500')
+                                span= errorMessage
+                                button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+
+
+
+                        h2.card-header.text-center.mb-4(style=' border-bottom: 3px solid #316FF6; color: #316FF6;') Sign Up
+
+                        form(action="/register" method="post")
+
+                            .row
+                                .col-md-6
+
+                                    .form-outline.mb-3(data-mdb-input-init='')
+                                        input#formControlLg.form-control.form-control-lg(type='text' name='username' style='height: 56px;')
+                                        label.form-label(for='formControlLg') Username
+                                .col-md-6
+                                    .form-outline.mb-3(data-mdb-input-init='')
+                                        input#formControlLg.form-control.form-control-lg(type='email' name='email' style='height: 56px;')
+                                        label.form-label(for='formControlLg') Email address
+                                .col-md-6
+                                    .form-outline.mb-3(data-mdb-input-init='')
+                                        input#formControlLg.form-control.form-control-lg(type='password' name='password' style='height: 56px;')
+                                        label.form-label(for='formControlLg') Password
+                                
+                                .form-group
+                                    button.login.w-100(type="submit") Sign Up 
+
+                    .card-footer.fw-bold.p-3.text-center.rounded-0(style='background: #316FF6; text-decoration: none;')
+                        span.text-white(href='/login' style='text-decoration: none; outline: none;') Already have an account?
+                            |
+                            a(href='/login' style='text-decoration: none; outline: none; color: #FFC0CB')  Login here!

@@ -1,0 +1,53 @@
+extends ../layout
+
+
+block content
+
+            
+    .card.text-bg-white.shadow.text-primary.mb-5(style="margin-top: 7rem;")
+      .card-header.fw-bold
+        button.btn.btn-outline-primary.btn-sm.i.bi.bi-plus-lg(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@getbootstrap' )
+        #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                h1#exampleModalLabel.modal-title.fs-5 Stock/ Add
+                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+              .modal-body.border-start.border-primary.border-4
+                form(action="/requisition", method="post") 
+                    .row
+                        .col-sm.mb-2
+                            input.form-control-sm.border-info(type='number' name="reference" placeholder='Reference' aria-label='Quantity')
+                        .col-sm.mb-2
+                            input.form-control-sm.border-info(type='number' name="quantity" placeholder='Quantity' aria-label='Quantity')
+                        .col-sm
+                            input.form-control-sm.border-info(type='number' name="price" placeholder='Price' aria-label='Price')
+                        .modal-footer.mt-3
+                            button.btn.btn-danger.btn-sm(type='button' data-bs-dismiss='modal') Close
+                            button.btn.btn-primary.btn-sm(type='submit')  Submit 
+                                |
+                                i.bi.bi-arrow-right
+              
+        |  Stock/ Available Now 
+      .card-body
+        .table-responsive.p-1
+            table#example.table.table-striped.table-bordered.table-hover(style='width:100%')
+                thead
+                    tr
+                      th.text-center ID
+                      th.text-center Reference
+                      th.text-center Quantity
+                      th.text-center Price
+                      th.text-center Actions
+                    tbody
+                      each noman in requisition
+                        tr
+                          td.text-center=noman.id
+                          td.text-center=noman.reference
+                          td.text-center=noman.quantity
+                          td.text-center=noman.price 
+                          td.text-center
+                            a.i.bi.bi-trash2.text-danger.pe-1(href=`/delete/${noman.id}`)
+  
+
+    

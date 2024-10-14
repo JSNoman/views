@@ -1,0 +1,57 @@
+extends ../layout 
+
+
+block content 
+    style.
+        body{background: #F0F1F3;}
+    .container-fluid(style='margin-top: 120px;')
+        .row.d-flex.justify-content-center.align-items-center
+            .col-md-6
+                if errorMessage
+                    .alert.alert-warning.alert-dismissible.fade.show.mx-auto.rounded-0(role='alert' style=' border-left: 5px solid red; ')
+                        span= errorMessage
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+
+                if message
+                    .alert.alert-dismissible.fade.show.mx-auto.alert-danger.rounded-0.shadow(role='alert' style=' border-left: 5px solid red; ')
+                        span= message
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+                        
+                if deleteMessage
+                    .alert.alert-dismissible.fade.show.mx-auto.alert-danger.rounded-0.shadow(role='alert' style=' border-left: 5px solid red; ')
+                        span.lead= deleteMessage
+                        button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+        .card
+            span.card-header.lead.text-center.fw-bold VIEW ALL USERS
+            .card-body
+                .table-responsive.p-1
+                    table#example.table.table-hover.table-sm(style='width:100%')
+                        thead
+                            tr.border
+                                th(scope='col') ID
+                                th.text-center(scope='col') Username
+                                th(scope='col') Email address 
+                                th(scope='col') Role
+                                th(scope='col') Image
+                                th(scope='col').text-center Actions
+                            tbody
+                                each noman in user
+                                    tr
+                                        td.px-4(scope='row')=noman.id
+                                        td.text-center.px-5=noman.username
+                                        td=noman.email
+                                        td=noman.role
+
+                                        td
+                                            img.img-fluid.rounded-circle.my-3(src=`/uploads/${noman.image}`, alt="image" style='width: 35px; height: 35px;')
+                                        td
+                                            .d-grid.gap-2.d-md-flex.justify-content-md-center
+                                                a.btn.btn-outline-success.btn-sm(href=`/admin/users/view/${noman.id}`)
+                                                    i.fa-solid.fa-eye
+                                                    
+                                                a.btn.btn-outline-primary.btn-sm(href=`/admin/users/edit/${noman.id}`)
+                                                    i.fa-solid.fa-pen-to-square
+
+                                                a.btn.btn-outline-danger.btn-sm(href=`/admin/users/delete/${noman.id}`) 
+                                                    i.fa-solid.fa-trash
+                                        

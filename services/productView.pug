@@ -1,0 +1,33 @@
+extends ../layout 
+
+
+block content 
+    .container(style='margin-top: 140px;') 
+
+    .card
+        h2.card-header.text-center(style='color: #32c5d2')  MY PRODUCT VIEW
+
+        .card-body
+            .table-responsive.p-1
+                table#example.table.table-striped.table-bordered.table-hover(style='width:100%')
+                    thead
+                        tr
+                            th.text-center ID
+                            th.text-center Heading
+                            th.text-center Message
+                            th.text-center Image 
+                            th.text-center Actions
+                        tbody
+                            each noman in product
+                                tr
+                                    td.text-center=noman.id
+                                    td.text-center=noman.heading
+                                    td.text-center.w-25=noman.message
+                                    td.text-center
+                                        img.img-fluid.rounded-circle.my-3(src=`/uploads/${noman.image}`, alt="image" style='width: 100px; height: 100px;')
+
+                                    td.text-center
+                                        a.i.bi.bi-trash2.btn.btn-primary.btn.sm.mx-1(href=`/user/product/edit/${noman.id}`) Edit
+                                        a.i.bi.bi-trash2.btn.btn-danger.btn.sm.my-1(href=`/admin/product/delete/${noman.id}`) Delete
+
+

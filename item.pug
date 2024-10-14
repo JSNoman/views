@@ -1,0 +1,36 @@
+extends layout
+
+block content
+
+    .container(style='margin-top: 130px;')
+    if message
+        .container.col-md-6.offset-md-3.mb-5.border-start.border-5.border-primary.bg-white.shadow.p-3
+            strong= message
+
+
+    .container
+        .col-md-6.offset-md-3.mb-5.border-start.border-4.border-primary.bg-white.shadow.p-3(style='margin-top: 130px;')
+            h2 Stock Add Form
+            button.btn.btn-outline-success.mb-2.btn-sm.i.bi.bi-plus-lg(type="button" id="addBtn") 
+            form(action="/item" method="post")
+                // Empty container for dynamic input fields row#dynamicFields 
+                .row#dynamicFields 
+                button.btn.btn-primary.btn-sm(type="submit") Submit
+
+    script.
+        document.getElementById('addBtn').onclick = () => {
+            const dynamicFields = document.getElementById('dynamicFields');
+            const inputNames = ['Reference', 'Quantity', 'Price'];
+            inputNames.forEach((names, index) => {
+                const col = document.createElement('div');
+                col.className = 'col-sm-4';
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.className = 'form-control';
+                input.placeholder = names;
+                input.name = 'names'; // Setting name attribute to lowercase version of field name
+                col.appendChild(input).style.marginBottom = "10px";
+                dynamicFields.appendChild(col);
+            });
+        };
+
