@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        title 404 Not Found
+        link(rel="stylesheet", href="/css/mdb.min.css")
+        link(rel="stylesheet", href="/css/bootstrap.min.css")
+    body
+
+        .container(style='margin-top: 120px;')
+            .card.mx-auto(style='width: 30rem;')
+                .card-body.px-4
+                    h1.card-title=message
+                    h6.card-subtitle.mb-3.mt-3.text-body-secondary Sorry, the page you are looking for does not exist.
+                    a.btn.btn-success.btn-sm.mt-2(href="/") Go back to home
+
+
+    script(src="/js/bootstrap.bundle.min.js")
+

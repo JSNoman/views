@@ -10,59 +10,54 @@ block content
             h1.text-center.text-primary.mt-2.text-decoration-underline(data-aos='fade-right' data-aos-duration="2000") Edit Component
             .card-body
                 form(action=`/admin/hero/edit/${hero.id}` method="post" enctype="multipart/form-data")
+                    .row 
+                        .col-lg-4
+                            .form-outline.mb-3(data-mdb-input-init='')
+                                input#formControlLg.form-control.form-control-lg(type='text' name='colorText' value=hero.colorText)
+                                label.form-label(for='') Color Text
+                            
+                        .col-lg-4
+                            .form-outline.mb-3(data-mdb-input-init='')
+                                input#formControlLg.form-control.form-control-lg(type='text' name='smallTitle' value=hero.smallTitle)
+                                label.form-label(for='') Small Title
 
+                        .col-lg-4
+                            .form-outline.mb-3(data-mdb-input-init='')
+                                input#formControlLg.form-control.form-control-lg(type='text' name='contact' value=hero.contact)
+                                label.form-label(for='') Whatsapp Number Start to 880
+                    .row 
+                        .col-lg-6
+                            .mb-3(data-mdb-input-init='')
+                                label.mb-1(for="") Upload CV
+                                input#formFileLg.form-control.form-control-md(type='file' name='cv')
+                                if hero.cv 
+                                    small.text-muted Current CV: #{hero.cv}
+                                    a(href=`/uploads/${hero.cv}` target='_blank').text-decoration-none  View CV
+                                    input(type="hidden", name="existingCv" value=hero.cv)
+
+                        .col-lg-6
+                            .mb-3(data-mdb-input-init='')
+                                label.mb-1(for="") Upload image
+                                input#formFileLg.form-control.form-control-md(type='file' name='image')
+                                if hero.image
+                                    small Current Image: #{hero.image}
+                                    a(href=`/uploads/${hero.image}` target='_blank').text-decoration-none    View image
+                                    img.img-fluid.rounded-circle.mx-auto.d-block(src=`/uploads/${hero.image}` alt='' data-aos='fade-left' data-aos-duration="2000" style='background-image: linear-gradient(180deg, #c4b6fd, #93acfc); height: 100px; width: 100px;')
+                                    input(type="hidden", name="existingImage" value=hero.image)
+                                    
                     .row 
 
-                        form(action="/admin/hero" method="post" enctype="multipart/form-data" style='')
+                        .col-lg-6
+                            .form-outline.mb-3(data-mdb-input-init='')
+                                textarea#textAreaExample.form-control(rows='4' name='message')=hero.message
+                                label.form-label(for='') Message
 
-                            .row 
-                                .col-lg-4
-                                    .form-outline.mb-3(data-mdb-input-init='')
-                                        input#formControlLg.form-control.form-control-lg(type='text' name='colorText' value=hero.colorText)
-                                        label.form-label(for='') Color Text
-                                    
-                                .col-lg-4
-                                    .form-outline.mb-3(data-mdb-input-init='')
-                                        input#formControlLg.form-control.form-control-lg(type='text' name='smallTitle' value=hero.smallTitle)
-                                        label.form-label(for='') Small Title
-
-                                .col-lg-4
-                                    .form-outline.mb-3(data-mdb-input-init='')
-                                        input#formControlLg.form-control.form-control-lg(type='text' name='contact' value=hero.contact)
-                                        label.form-label(for='') Whatsapp Number Start to 880
-                            .row 
-                                .col-lg-6
-                                    .mb-3(data-mdb-input-init='')
-                                        label.mb-1(for="") Upload CV
-                                        input#formFileLg.form-control.form-control-md(type='file' name='cv')
-                                        if hero.cv 
-                                            small.text-muted Current CV: #{hero.cv}
-                                            a(href=`/uploads/${hero.cv}` target='_blank').text-decoration-none  View CV
-                                            input(type="hidden", name="existingCv" value=hero.cv)
-
-                                .col-lg-6
-                                    .mb-3(data-mdb-input-init='')
-                                        label.mb-1(for="") Upload image
-                                        input#formFileLg.form-control.form-control-md(type='file' name='image')
-                                        if hero.image
-                                            small Current Image: #{hero.image}
-                                            a(href=`/uploads/${hero.image}` target='_blank').text-decoration-none    View image
-                                            img.img-fluid.rounded-circle.mx-auto.d-block(src=`/uploads/${hero.image}` alt='' data-aos='fade-left' data-aos-duration="2000" style='background-image: linear-gradient(180deg, #c4b6fd, #93acfc); height: 100px; width: 100px;')
-                                            input(type="hidden", name="existingImage" value=hero.image)
-                                            
-                            .row 
-
-                                .col-lg-6
-                                    .form-outline.mb-3(data-mdb-input-init='')
-                                        textarea#textAreaExample.form-control(rows='4' name='message')=hero.message
-                                        label.form-label(for='') Message
-
-                                .col-lg-6
-                                    .form-outline.mb-3(data-mdb-input-init='')
-                                        textarea#textAreaExample.form-control(rows='4' name='secondMessage')=hero.secondMessage
-                                        label.form-label(for='') Second Message
-                                div   
-                                    button.btn.btn-primary.text-capitalize(type="submit") Submit
+                        .col-lg-6
+                            .form-outline.mb-3(data-mdb-input-init='')
+                                textarea#textAreaExample.form-control(rows='4' name='secondMessage')=hero.secondMessage
+                                label.form-label(for='') Second Message
+                        div   
+                            button.btn.btn-primary.text-capitalize(type="submit") Submit
 
                     //-     .col-md-4
                     //-         .form-outline.mb-3

@@ -3,7 +3,7 @@ extends layout
 block content
 
     style.
-        body{background-color: rgb(74, 223, 243);}
+        //- body{background-color: rgb(74, 223, 243);}
 
     .container(style='margin-top: 130px;') 
         .row
@@ -11,16 +11,16 @@ block content
                 .card.shadow.mb-5.rounded-0(style='background: linear-gradient(to right top, rgba(255,255,255, 0), rgba(255,255,255, 1));')
                     .card-body
                         h4.card-header.text-center.mb-5(style=' border-bottom: 3px solid coral;') Update User Role
-                        form(action='/admin/update-role', method='post')
+                        form(action='/admin/adminUpdateRole', method='post')
 
                             .mb-3
                                 .form-outline(data-mdb-input-init='')
-                                    input#formControlLg.form-control.form-control-lg(type='text' name='userId')
+                                    input#formControlLg.form-control.form-control-lg(type='text' name='id')
                                     label.form-label(for='formControlLg') User ID 
 
                             .mb-3
-                                label(for='newRole') Select New Role
-                                select.form-control(name='newRole', required)
+                                label(for='newrole') Select New Role
+                                select.form-control(name='newrole', required)
                                     option(value='user') User
                                     option(value='admin') Admin
 
@@ -29,9 +29,9 @@ block content
 
                     .card-footer.bg-white.fw-bold.p-3.text-center.rounded-0
                         
-                        if message
+                        if errorMessage
                             .alert.alert-warning.alert-dismissible.fade.show.mx-auto.m-0.text-center.rounded-0(role='alert' style=' border-left: 5px solid red; ')
-                                span= message
+                                span= errorMessage
                                 button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
 
                         

@@ -4,15 +4,46 @@ block content
 
     style.
         body{background: #F0F1F3;}
+        .submitt {width: 130px;height: 40px; border: none;color: black;font-weight: 500; border: .5px solid green;}
+        .submitt:hover {background-color: #58BF14; color: white;transition: .2s ease-in-out;}
+        .close {width: 130px;height: 40px;border: .5px solid #F72A57;color: black;font-weight: 500;}
+        .close:hover {background-color: red;transition: .2s ease-in-out;color: white;border-width: 2px;}
+
 
     .container-fluid(style='margin-top: 90px;')
         .row
             .col-sm-9.col-md-9.col-lg-3.mb-3.mb-sm-0
                 .card.rounded-0.shadow-0
-                    img.imag-fluid.rounded-circle.mx-auto.d-block(src='/uploads/download.png' style='height: 120px; width: 120px;')
+                    img.imag-fluid.rounded-circle.mx-auto.d-block.mt-4(src=`/uploads/${user.profile}` style='height: 120px; width: 120px;')
                     .card-body
                         h5.card-title.text-center #{user.username}
                     ul.list-group.list-group-flush.p-1
+                        i.fa-solid.fa-file-pen.fa-lg(style='color: #F72A57')
+                        |  
+                        a.text-dark.text-decoration-none(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@getbootstrap') Edit profile
+                        #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        h1#exampleModalLabel.modal-title.fs-5 Edit profile
+                                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                    .modal-body
+                                        form(action="/admin/profile" method="post" enctype="multipart/form-data")
+                                            .row 
+                                                .col-lg-12
+                                                    label(for="") Profile
+                                                    .form-outline.mb-3(data-mdb-input-init='')
+                                                        input#formControlLg.form-control.form-control-lg(type='file' name='profile')
+                                                //- .col-lg-12
+                                                //-     label(for="") Banner
+                                                //-     .form-outline.mb-3(data-mdb-input-init='')
+                                                //-         input#formControlLg.form-control.form-control-lg(type='file' name='banner')
+
+                                                .modal-footer
+                                                    button.close(type='button' data-bs-dismiss='modal') Close
+                                                    button.submitt(type="submit") 
+                                                        i.fa-solid.fa-arrow-up 
+                                                        |  Upload
                         li.list-group-item
                             i.fa-solid.fa-envelope.fs-5 
                             |
